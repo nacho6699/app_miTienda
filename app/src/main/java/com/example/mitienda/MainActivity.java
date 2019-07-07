@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.mitienda.listDataProducto.CustomAdapter;
 import com.example.mitienda.listDataProducto.ItemList;
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity
     private CustomAdapter ADAPTER;
     private Context root;
 
+    private TextView userEmail;
+    Bundle recibir;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +70,20 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        //verificar si ya inicio sesión
+        inicioSesion();
+        //-----acceder al textview del nav
+        View v = navigationView.getHeaderView(0);
+        userEmail =(TextView) v.findViewById(R.id.tv_userEmail);
+
+        Bundle intentExtras = this.getIntent().getExtras();
+        String datos = intentExtras.getString("usuario");
+
+        userEmail.setText(datos);
+
+
+
 
         //para la listwiew----adapter
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -233,5 +251,13 @@ public class MainActivity extends AppCompatActivity
         //LISTINFO.add(new ItemList("https://images-na.ssl-images-amazon.com/images/M/MV5BMjA4MzAyNDE1MF5BMl5BanBnXkFtZTgwODQxMjU5MzE@._V1_SX300.jpg","Titanic","45bs","1"));
         ADAPTER = new CustomAdapter(this,LISTINFO);
         LIST.setAdapter(ADAPTER);
+    }
+
+    public  void inicioSesion(){
+        if (utils.token == ""){
+            Intent home = new Intent(MainActivity.this, login.class);
+            startActivity(home);
+            return;
+        }
     }
 }

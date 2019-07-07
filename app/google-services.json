@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "674210539594",
+    "firebase_url": "https://tiendaandroid-7455b.firebaseio.com",
+    "project_id": "tiendaandroid-7455b",
+    "storage_bucket": "tiendaandroid-7455b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674210539594:android:6a7fdbe7515cddec",
+        "android_client_info": {
+          "package_name": "com.example.mitienda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674210539594-eeuf78fb6btfmpm9c5qmhsrhql15tmaq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mitienda",
+            "certificate_hash": "cd72d1bc4117ce7de6bbcc069954ea1aaddaa423"
+          }
+        },
+        {
+          "client_id": "674210539594-kb8d00pof07bcsm55caos27qfo9au0le.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAi0Z2TK5d9EUizGmhEsTD9o05TxGwwmj0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674210539594-kb8d00pof07bcsm55caos27qfo9au0le.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
