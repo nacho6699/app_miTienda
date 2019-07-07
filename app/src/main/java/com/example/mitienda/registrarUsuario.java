@@ -1,5 +1,6 @@
 package com.example.mitienda;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class registrarUsuario extends AppCompatActivity {
     private Context root;
+    ProgressDialog progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,12 +62,24 @@ public class registrarUsuario extends AppCompatActivity {
         params.add("password",password.getText().toString());
 
         client.post(utils.REGISTER_SERVICE, params, new JsonHttpResponseHandler(){
+            @Override
+            public void onStart() {
+                /** Show the loading dialog */
+                progress = ProgressDialog.show(root, "Registrando",
+                        "Un momento porfavor", true);
+                //Toast.makeText(login.this,"Cargandoooo",Toast.LENGTH_LONG).show();
+            }
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                progress.dismiss();
                 if(response.has("roles")){
                     Toast.makeText(registrarUsuario.this,"Registro exitoso",Toast.LENGTH_LONG).show();
                     Intent login = new Intent(registrarUsuario.this, login.class);
                     startActivity(login);
                 }
+            }
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                progress.dismiss();
+                Toast.makeText(registrarUsuario.this,"Error verifique sus datos",Toast.LENGTH_LONG).show();
             }
 
         });

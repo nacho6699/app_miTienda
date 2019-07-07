@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.SearchView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity
     private Context root;
 
     private TextView userEmail;
-    Bundle recibir;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +112,24 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        //recuperando el valor del Edit view del nav bar
+        MenuItem searchItem = menu.findItem(R.id.buscar_producto);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        //ebvento para escuchar el cambio del texto
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                loadInitRestData(newText);
+                return false;
+            }
+        });
         return true;
     }
 
@@ -228,6 +248,7 @@ public class MainActivity extends AppCompatActivity
         LIST = (GridView) this.findViewById(R.id.list_view_producto);
         //para probar con un item
         //LISTINFO.add(new ItemList("https://images-na.ssl-images-amazon.com/images/M/MV5BMjA4MzAyNDE1MF5BMl5BanBnXkFtZTgwODQxMjU5MzE@._V1_SX300.jpg","Titanic","2019","Acción"));
+        /*-------------escuchar el cambio de texto de un Edittext
         EditText search = (EditText)this.findViewById(R.id.et_buscar_producto);
         //evento al cambiar el texto
         search.addTextChangedListener(new TextWatcher() {
@@ -247,12 +268,12 @@ public class MainActivity extends AppCompatActivity
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        });*/
         //LISTINFO.add(new ItemList("https://images-na.ssl-images-amazon.com/images/M/MV5BMjA4MzAyNDE1MF5BMl5BanBnXkFtZTgwODQxMjU5MzE@._V1_SX300.jpg","Titanic","45bs","1"));
         ADAPTER = new CustomAdapter(this,LISTINFO);
         LIST.setAdapter(ADAPTER);
     }
-
+    //verificar si ya tiene el token
     public  void inicioSesion(){
         if (utils.token == ""){
             Intent home = new Intent(MainActivity.this, login.class);
@@ -260,4 +281,6 @@ public class MainActivity extends AppCompatActivity
             return;
         }
     }
+
+
 }

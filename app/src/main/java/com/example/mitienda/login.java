@@ -1,6 +1,7 @@
 package com.example.mitienda;
 
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,9 +39,9 @@ public class login extends AppCompatActivity implements GoogleApiClient.OnConnec
     //para google login
    private GoogleApiClient client;
    private  int GOOGLE_CODE=12345;
-   private Context root;
-    /*private GoogleApiClient googleApiClient;
-    private SignInButton signInButton;*/
+   //para le loadding
+   ProgressDialog progress;
+   private Context miRoot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class login extends AppCompatActivity implements GoogleApiClient.OnConnec
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        root = this;
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +60,8 @@ public class login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         .setAction("Action", null).show();
             }
         });
+
+        miRoot = this;
         //para el google login
         GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -74,7 +77,6 @@ public class login extends AppCompatActivity implements GoogleApiClient.OnConnec
     //mi login
     public void login(View view) {
 
-
         final EditText email = findViewById(R.id.et_email);
         EditText password = findViewById(R.id.et_password);
 
@@ -82,23 +84,26 @@ public class login extends AppCompatActivity implements GoogleApiClient.OnConnec
         RequestParams params = new RequestParams();
         params.add("email",email.getText().toString());
         params.add("password",password.getText().toString());
-       // Toast.makeText(login.this,email.getText().toString(),Toast.LENGTH_LONG).show();
+
         client.post(utils.LOGIN_SERVICE, params, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
                 /** Show the loading dialog */
-                Toast.makeText(login.this,"Cargandoooo",Toast.LENGTH_LONG).show();
+                progress = ProgressDialog.show(miRoot, "Accediendo",
+                        "Cargando", true);
+                //Toast.makeText(login.this,"Cargandoooo",Toast.LENGTH_LONG).show();
             }
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                progress.dismiss();
                if(response.has("token")){
                    try {
                        utils.token = response.getString("token");
 
                        Toast.makeText(login.this,"Bienvenidoooo :)",Toast.LENGTH_LONG).show();
                        Intent home = new Intent(login.this, MainActivity.class);
-
-                       home.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                       PendingIntent pendingIntent = PendingIntent.getActivity(root, 0, home, PendingIntent.FLAG_UPDATE_CURRENT);
+                      // home.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                       //PendingIntent pendingIntent = PendingIntent.getActivity(root, 0, home, PendingIntent.FLAG_UPDATE_CURRENT);
+                       //enviando el correo al main activiti
                        Bundle miBundle = new Bundle();
                        miBundle.putString("usuario", email.getText().toString());
                        home.putExtras(miBundle);
@@ -113,6 +118,7 @@ public class login extends AppCompatActivity implements GoogleApiClient.OnConnec
             }
 
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                progress.dismiss();
                 Toast.makeText(login.this,"Error verifique sus datos",Toast.LENGTH_LONG).show();
             }
 

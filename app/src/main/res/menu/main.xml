@@ -3,7 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_settings"
+        android:icon="@drawable/home"
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+
+    <item
+    android:id="@+id/buscar_producto"
+    android:icon="@drawable/ic_search_black_24dp"
+    android:title="Search product"
+    app:actionViewClass="android.support.v7.widget.SearchView"
+    app:showAsAction="ifRoom|collapseActionView" />
+
 </menu>
