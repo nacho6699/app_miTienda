@@ -2,6 +2,7 @@ package com.example.mitienda;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
@@ -24,6 +25,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mitienda.listDataProducto.CustomAdapter;
 import com.example.mitienda.listDataProducto.ItemList;
@@ -49,7 +51,8 @@ public class MainActivity extends AppCompatActivity
     private Context root;
 
     private TextView userEmail;
-
+    private  String miToken;
+    private SharedPreferences preferencias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,18 +77,22 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //verificar si ya inicio sesión
-        inicioSesion();
+
         //-----acceder al textview del nav
         View v = navigationView.getHeaderView(0);
         userEmail =(TextView) v.findViewById(R.id.tv_userEmail);
 
         Bundle intentExtras = this.getIntent().getExtras();
-        String datos = intentExtras.getString("usuario");
+        //String datos = intentExtras.getString("usuario");
 
-        userEmail.setText(datos);
+       //recuperando datos usuario y token del usuario logeado;
+        preferencias = getSharedPreferences("shared_login_data",   Context.MODE_PRIVATE);
+        String email = preferencias.getString("usuario", "vacio");
+        miToken = preferencias.getString("token", "");
 
-
-
+        //llamando inicioSession para verificar si existe el token y cerrar el acceso al mainActivity
+        inicioSesion();
+        userEmail.setText(email);
 
         //para la listwiew----adapter
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -162,7 +169,10 @@ public class MainActivity extends AppCompatActivity
                 startActivity(home);
                 break;
             }
-            case R.id.nav_login:{
+            case R.id.nav_logout:{
+                preferencias.edit().clear().commit();
+                //preferencias.edit().remove("usuario");
+                //preferencias.edit().commit();
                 Intent login = new Intent(this,login.class);
                 startActivity(login);
                 break;
@@ -173,7 +183,8 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_vender:{
-
+                Intent registrarProducto = new Intent(this,registrarProducto.class);
+                startActivity(registrarProducto);
                 break;
             }
             case R.id.nav_citas:{
@@ -186,7 +197,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    //contenido de la view list ------------------------------------------------
+    //contenido de la view list -------------------Cargando los productos-----------------------------
     private void loadInitRestData(String key) {
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -275,9 +286,10 @@ public class MainActivity extends AppCompatActivity
     }
     //verificar si ya tiene el token
     public  void inicioSesion(){
-        if (utils.token == ""){
-            Intent home = new Intent(MainActivity.this, login.class);
-            startActivity(home);
+
+        if (miToken== ""){
+            Intent login = new Intent(MainActivity.this, login.class);
+            startActivity(login);
             return;
         }
     }

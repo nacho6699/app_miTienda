@@ -12,11 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".registrarProducto"
+            android:label="@string/title_activity_registrar_producto"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".login"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".registrarUsuario"
             android:label="@string/title_activity_registrar_usuario"
