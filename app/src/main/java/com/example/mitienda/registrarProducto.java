@@ -3,7 +3,9 @@ package com.example.mitienda;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +26,7 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-public class registrarProducto extends AppCompatActivity {
+public class registrarProducto extends AppCompatActivity implements View.OnClickListener {
 
     ProgressDialog progress;
     protected Context miRoot;
@@ -32,6 +35,11 @@ public class registrarProducto extends AppCompatActivity {
     TextView cantidad;
     ImageButton foto;
     Button registrarProducto;
+
+    //para la camara
+    private int cod_gallery=10;
+    private int cod_camara=20;
+    ImageView vistaPrevia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +58,54 @@ public class registrarProducto extends AppCompatActivity {
         });
 
         miRoot = this;
+        loadComponents();
 
     }
 
+    private void loadComponents() {
+        ImageButton irGaleria = findViewById(R.id.btn_irGaleria);
+        ImageButton tomarFoto = findViewById(R.id.btn_tomarFoto);
+        vistaPrevia = findViewById(R.id.vista_previa_foto);
 
+        irGaleria.setOnClickListener(this);
+        tomarFoto.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_irGaleria:{
+                loadGallery();
+                break;
+            }
+            case R.id.btn_tomarFoto:{
+                loadCamera();
+                break;
+            }
+        }
+    }
+
+    private void loadGallery() {
+        Intent files = new Intent(Intent.ACTION_PICK);
+        files.setType("image/");
+        this.startActivityForResult(files,cod_gallery);
+    }
+    private void loadCamera() {
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (cod_gallery == requestCode){
+            //verificando si se cancela la eleccion de la imagen
+            if (data != null){
+                Uri img = data.getData();
+                vistaPrevia.setImageURI(img);
+            }
+
+        }
+    }
+
+    //registrando producto
     public void registrarProducto(View view) {
         descripcion = findViewById(R.id.et_descripcion);
         precio = findViewById(R.id.et_precio);
@@ -80,7 +132,6 @@ public class registrarProducto extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 progress.dismiss();
                     try {
-
                         Toast.makeText(registrarProducto.this,"Registro Exitoso : "+response.getString("descripcion") ,Toast.LENGTH_LONG).show();
                         Intent home = new Intent(registrarProducto.this, MainActivity.class);
 
@@ -89,8 +140,6 @@ public class registrarProducto extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-
             }
 
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
@@ -100,4 +149,6 @@ public class registrarProducto extends AppCompatActivity {
 
         });
     }
+
+
 }
