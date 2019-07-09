@@ -61,11 +61,33 @@
                 android:hint="Cantidad"
                 android:inputType="textPersonName" />
 
-            <ImageButton
-                android:id="@+id/btn_foto"
+            <ImageView
+                android:id="@+id/vista_previa_foto"
                 android:layout_width="match_parent"
-                android:layout_height="213dp"
-                app:srcCompat="@drawable/ic_menu_camera" />
+                android:layout_height="200dp"
+                android:padding="5dp"
+                app:srcCompat="@drawable/img_default" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btn_tomarFoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_menu_camera" />
+
+                <ImageButton
+                    android:id="@+id/btn_irGaleria"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_menu_gallery" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_registrarProducto"

@@ -82,8 +82,6 @@ public class MainActivity extends AppCompatActivity
         View v = navigationView.getHeaderView(0);
         userEmail =(TextView) v.findViewById(R.id.tv_userEmail);
 
-        Bundle intentExtras = this.getIntent().getExtras();
-        //String datos = intentExtras.getString("usuario");
 
        //recuperando datos usuario y token del usuario logeado;
         preferencias = getSharedPreferences("shared_login_data",   Context.MODE_PRIVATE);

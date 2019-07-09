@@ -58,7 +58,7 @@ public class registrarProducto extends AppCompatActivity {
         descripcion = findViewById(R.id.et_descripcion);
         precio = findViewById(R.id.et_precio);
         cantidad = findViewById(R.id.et_cantidad);
-        foto = findViewById(R.id.btn_foto);
+        foto = findViewById(R.id.btn_tomarFoto);
 
         RequestParams params = new RequestParams();
         params.add("descripcion",descripcion.getText().toString());
