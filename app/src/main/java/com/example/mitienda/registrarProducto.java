@@ -1,10 +1,15 @@
 package com.example.mitienda;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -48,6 +53,8 @@ public class registrarProducto extends AppCompatActivity implements View.OnClick
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //metodo para solicitar los permisos
+        checkPermissionCameraAndStorage();
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +67,20 @@ public class registrarProducto extends AppCompatActivity implements View.OnClick
         miRoot = this;
         loadComponents();
 
+    }
+    //permisos camara y storage
+    private void checkPermissionCameraAndStorage() {
+        //si la version es menor a magmelo:) (antiguo)
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M){
+            return;
+        }
+        if (this.checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED || this.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED || this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED){
+            return;
+        }else{
+            //muestra la ventana para dar los permisos
+            this.requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE},100);
+        }
+        //return;
     }
 
     private void loadComponents() {
@@ -90,8 +111,10 @@ public class registrarProducto extends AppCompatActivity implements View.OnClick
         this.startActivityForResult(files,cod_gallery);
     }
     private void loadCamera() {
+        Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        this.startActivityForResult(camera,cod_camara);
     }
-
+    //obteniendo el resultado de la carga de imagen desde galeria
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -102,6 +125,14 @@ public class registrarProducto extends AppCompatActivity implements View.OnClick
                 vistaPrevia.setImageURI(img);
             }
 
+        }
+        //obteniendo resultados de la camara
+        if (cod_camara == requestCode){
+            if (data != null){
+                Bundle informacion = data.getExtras();
+                Bitmap img = (Bitmap) informacion.get("data");
+                vistaPrevia.setImageBitmap(img);
+            }
         }
     }
 
