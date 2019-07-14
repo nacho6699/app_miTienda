@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity
                     JSONObject itemJson = null;
                     try {
                         itemJson = response.getJSONObject(i);
-                        String imgPro = itemJson.getString("img");
+                        String imgPro = utils.HOST + itemJson.getString("img");
                         String title = itemJson.getString("descripcion");
                         String precio = itemJson.getString("precio");
                         String id_pro = "b"+i;
