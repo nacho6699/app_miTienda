@@ -226,6 +226,8 @@ public class registrarProducto extends AppCompatActivity implements View.OnClick
                     try {
                         Toast.makeText(registrarProducto.this,"Registro Exitoso : "+response.getString("descripcion") ,Toast.LENGTH_LONG).show();
                         Intent home = new Intent(registrarProducto.this, MainActivity.class);
+                        //para limpiar la actividad anterior que es registro
+                        home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                         startActivity(home);
 
@@ -240,6 +242,7 @@ public class registrarProducto extends AppCompatActivity implements View.OnClick
             }
 
         });
+
     }
 
 
