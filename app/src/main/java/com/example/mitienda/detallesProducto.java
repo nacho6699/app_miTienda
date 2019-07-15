@@ -1,13 +1,27 @@
 package com.example.mitienda;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
@@ -23,10 +37,17 @@ public class detallesProducto extends AppCompatActivity {
 
     private Context miContexto;
 
+    private  String miToken;
+    private SharedPreferences preferencias;
+    private ProgressBar loading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalles_producto);
+        //recuperando el token para la consulta de datos de usuario
+        preferencias = getSharedPreferences("shared_login_data",   Context.MODE_PRIVATE);
+        miToken = preferencias.getString("token", "");
 
         miContexto = this;
         loadComponentsDetalles();
@@ -53,8 +74,43 @@ public class detallesProducto extends AppCompatActivity {
             descripcion.setText(R_descripcion);
             precio.setText(R_precio);
             cantidad.setText(R_cantidad);
-            referencia_email.setText(id_user);
 
         }
+
+        //consultando los datos de los usurios para la referencia
+        loading = findViewById(R.id.progressBar2);
+
+        RequestParams params = new RequestParams();
+        params.put("id",id_user);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.addHeader("Authorization", miToken);
+
+        client.get(utils.LIST_USERS, params, new JsonHttpResponseHandler(){
+            @Override
+            public void onStart() {
+                loading.setVisibility(View.VISIBLE);
+            }
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                loading.setVisibility(View.GONE);
+                JSONObject itemJson = null;
+                try {
+                    itemJson = response.getJSONObject(0);
+                    String email =itemJson.getString("email");
+                    String celular = itemJson.getString("celular");
+                    //cargando los datos recuperados
+                    referencia_email.setText(email);
+                    referencia_celular.setText(celular);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                loading.setVisibility(View.GONE);
+                Toast.makeText(detallesProducto.this,"Error de servervidor",Toast.LENGTH_LONG).show();
+            }
+
+        });
+
     }
 }
