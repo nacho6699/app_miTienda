@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
@@ -42,7 +43,7 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener {
 
    // private ListView LIST;
    private GridView LIST;
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity
         MenuItem searchItem = menu.findItem(R.id.buscar_producto);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        //ebvento para escuchar el cambio del texto
+        //evento para escuchar el cambio del texto
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -236,10 +237,11 @@ public class MainActivity extends AppCompatActivity
                         String imgPro = utils.HOST + itemJson.getString("img");
                         String title = itemJson.getString("descripcion");
                         String precio = itemJson.getString("precio");
-                        String id_pro = "b"+i;
+                        String cantidad = itemJson.getString("cantidad");
+                        String id_pro = itemJson.getString("_id");
+                        String id_user = itemJson.getString("id_user");
 
-
-                        ItemList item = new ItemList(imgPro, title, precio, id_pro);
+                        ItemList item = new ItemList(imgPro, title, precio, cantidad, id_pro, id_user);
                         LISTINFO.add(item);
                         ADAPTER.notifyDataSetChanged();
                     } catch (JSONException e) {
@@ -281,6 +283,8 @@ public class MainActivity extends AppCompatActivity
         //LISTINFO.add(new ItemList("https://images-na.ssl-images-amazon.com/images/M/MV5BMjA4MzAyNDE1MF5BMl5BanBnXkFtZTgwODQxMjU5MzE@._V1_SX300.jpg","Titanic","45bs","1"));
         ADAPTER = new CustomAdapter(this,LISTINFO);
         LIST.setAdapter(ADAPTER);
+        //registrando el evento para el click en el item
+        LIST.setOnItemClickListener(this);
     }
     //verificar si ya tiene el token
     public  void inicioSesion(){
@@ -292,5 +296,24 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    //para escuchar la seleccion del item del producto
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String id_pro = LISTINFO.get(position).getId_pro();
+        String sendImg = LISTINFO.get(position).getImgPro();
+        String sendPrecio = LISTINFO.get(position).getPrecio();
+        String sendCantidad = LISTINFO.get(position).getCantidad();
+        String sendDescriocion = LISTINFO.get(position).getTitle();
+        String send_id_user = LISTINFO.get(position).getId_user();
 
+        Intent detallesProducto = new Intent(MainActivity.this, detallesProducto.class);
+        detallesProducto.putExtra("img",sendImg);
+        detallesProducto.putExtra("id_pro",id_pro);
+        detallesProducto.putExtra("precio",sendPrecio);
+        detallesProducto.putExtra("cantidad",sendCantidad);
+        detallesProducto.putExtra("descripcion",sendDescriocion);
+        detallesProducto.putExtra("id_user",send_id_user);
+        //Toast.makeText(this, ">>>"+sendImg,Toast.LENGTH_LONG).show();
+        startActivity(detallesProducto);
+    }
 }

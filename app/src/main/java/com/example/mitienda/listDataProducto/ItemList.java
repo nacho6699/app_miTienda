@@ -5,11 +5,15 @@ public class ItemList {
     private String title;
     private String precio;
     private String id_pro;
-    public ItemList(String imgPro, String title, String precio, String id_pro){
+    private String cantidad;
+    private String id_user;
+    public ItemList(String imgPro, String title, String precio,String cantidad, String id_pro, String id_user){
         this.imgPro=imgPro;
         this.title=title;
         this.precio=precio;
         this.id_pro=id_pro;
+        this.cantidad = cantidad;
+        this.id_user = id_user;
     }
 
     public String getImgPro() {
@@ -32,17 +36,32 @@ public class ItemList {
         return this.precio;
     }
 
-    public void setPrecio(String year) {
-        this.precio = year;
+    public void setPrecio(String precio) {
+        this.precio = precio;
     }
 
     public String getId_pro() {
         return this.id_pro;
     }
 
-    public void setId_pro(String type) {
-        this.id_pro = type;
+    public void setId_pro(String id_pro) {
+        this.id_pro = id_pro;
     }
 
+    public String getCantidad() {
+        return this.cantidad;
+    }
+
+    public void setCantidad(String cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public String getId_user() {
+        return this.id_user;
+    }
+
+    public void setId_user(String id_user) {
+        this.cantidad = id_user;
+    }
 
 }

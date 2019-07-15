@@ -54,18 +54,20 @@ public class registrarUsuario extends AppCompatActivity {
         EditText username = findViewById(R.id.et_nombre);
         EditText email = findViewById(R.id.et_email);
         EditText password = findViewById(R.id.et_password);
+        EditText celular = findViewById(R.id.et_celular);
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.add("user_name",username.getText().toString());
         params.add("email",email.getText().toString());
         params.add("password",password.getText().toString());
+        params.add("celular",celular.getText().toString());
 
         client.post(utils.REGISTER_SERVICE, params, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
                 /** Show the loading dialog */
-                progress = ProgressDialog.show(root, "Registrando",
+                progress = ProgressDialog.show(root, "Registrando Usuario",
                         "Un momento porfavor", true);
                 //Toast.makeText(login.this,"Cargandoooo",Toast.LENGTH_LONG).show();
             }

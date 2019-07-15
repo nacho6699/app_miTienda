@@ -7,10 +7,8 @@
     tools:context=".detallesProducto">
 
     <ScrollView
-        android:layout_width="395dp"
-        android:layout_height="715dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,11 +17,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <ImageView
                 android:id="@+id/imageProducto"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="300dp"
                 app:srcCompat="@drawable/img_default" />
 
@@ -41,6 +41,7 @@
                 android:id="@+id/tv_descripcion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:text="TextView" />
 
             <TextView
@@ -57,6 +58,7 @@
                 android:id="@+id/tv_precio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:text="TextView" />
 
             <TextView
@@ -73,6 +75,7 @@
                 android:id="@+id/tv_cantidad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:text="TextView" />
 
             <TextView
@@ -86,9 +89,17 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_referencia"
+                android:id="@+id/tv_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/tv_celular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:text="TextView" />
 
             <Button
