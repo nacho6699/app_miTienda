@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".detallesProducto"></activity>
+        <activity android:name=".productsUser"></activity>
+        <activity android:name=".detallesProducto" />
         <activity
             android:name=".registrarProducto"
             android:label="@string/title_activity_registrar_producto"

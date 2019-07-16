@@ -179,9 +179,9 @@ public class MainActivity extends AppCompatActivity
                 startActivity(login);
                 break;
             }
-            case R.id.nav_registro:{
-                Intent register = new Intent(this,registrarUsuario.class);
-                startActivity(register);
+            case R.id.nav_mis_ventas:{
+                Intent products_user = new Intent(this,productsUser.class);
+                startActivity(products_user);
                 break;
             }
             case R.id.nav_vender:{

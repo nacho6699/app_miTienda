@@ -9,7 +9,7 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_salir">Cerrar Sesión</string>
-    <string name="menu_registro">Registrarse</string>
+    <string name="menu_mis_ventas">Mis Ventas</string>
     <string name="menu_vender">Vender</string>
     <string name="menu_miscitas">Mis Citas</string>
     <string name="title_activity_registrar_usuario">registrarUsuario</string>
