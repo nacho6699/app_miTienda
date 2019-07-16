@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity
     private TextView userEmail;
     private  String miToken;
     private SharedPreferences preferencias;
+
+    private ProgressBar loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,7 +201,7 @@ public class MainActivity extends AppCompatActivity
     }
     //contenido de la view list -------------------Cargando los productos-----------------------------
     private void loadInitRestData(String key) {
-
+        loading = findViewById(R.id.progressBar4);
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.add("buscar",key);
@@ -228,7 +231,12 @@ public class MainActivity extends AppCompatActivity
                 }
 
             }*/
+           @Override
+            public void onStart() {
+               loading.setVisibility(View.VISIBLE);
+            }
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                loading.setVisibility(View.GONE);
                 LISTINFO.clear();
                 for (int i=0; i <= response.length();i++){
                     JSONObject itemJson = null;
@@ -250,6 +258,10 @@ public class MainActivity extends AppCompatActivity
 
                     ADAPTER.notifyDataSetChanged();
                 }
+            }
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                loading.setVisibility(View.GONE);
+                Toast.makeText(MainActivity.this,"Error de servidor",Toast.LENGTH_LONG).show();
             }
         });
     }

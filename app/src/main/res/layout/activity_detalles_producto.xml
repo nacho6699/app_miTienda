@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#CCB4F5"
     tools:context=".detallesProducto">
 
     <ScrollView
@@ -25,11 +26,12 @@
                 android:id="@+id/imageProducto"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
+                android:scaleType="center"
                 app:srcCompat="@drawable/img_default" />
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -47,6 +49,12 @@
                         android:textColor="#673AB7"
                         android:textSize="18sp"
                         android:textStyle="bold" />
+
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#673AB7" />
 
                     <TextView
                         android:id="@+id/tv_tituloDesc"
@@ -110,6 +118,12 @@
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
+                    <View
+                        android:id="@+id/divider2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#673AB7" />
+
                     <ProgressBar
                         android:id="@+id/progressBar2"
                         style="?android:attr/progressBarStyle"
@@ -137,28 +151,28 @@
                             android:paddingTop="10dp"
                             android:text="TextView" />
                     </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tv_titulo_celular"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:text="Celular :"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tv_celular"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingTop="10dp"
-                        android:text="TextView" />
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/tv_titulo_celular"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:text="Celular :"
+                            android:textStyle="bold" />
 
+                        <TextView
+                            android:id="@+id/tv_celular"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingTop="10dp"
+                            android:text="TextView" />
+                    </LinearLayout>
 
 
                 </LinearLayout>
@@ -168,16 +182,20 @@
                 android:id="@+id/btn_chat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#673AB7"
                 android:paddingTop="10dp"
                 android:text="Chat"
+                android:textColor="#FFFEFE"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btn_Cita"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#673AB7"
                 android:paddingTop="10dp"
                 android:text="Hacer una cita"
+                android:textColor="#F8F5F5"
                 android:textStyle="bold" />
 
         </LinearLayout>

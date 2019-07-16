@@ -107,7 +107,7 @@ public class detallesProducto extends AppCompatActivity {
 
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 loading.setVisibility(View.GONE);
-                Toast.makeText(detallesProducto.this,"Error de servervidor",Toast.LENGTH_LONG).show();
+                Toast.makeText(detallesProducto.this,"Error de servidor",Toast.LENGTH_LONG).show();
             }
 
         });
