@@ -34,8 +34,15 @@
                 android:paddingTop="24dp"
                 android:text="Registrar producto"
                 android:textAlignment="center"
+                android:textColor="#673AB7"
                 android:textSize="24sp"
                 android:textStyle="bold" />
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <EditText
                 android:id="@+id/et_descripcion"
@@ -78,6 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:backgroundTint="#E91E63"
                     app:srcCompat="@drawable/ic_menu_camera" />
 
                 <ImageButton
@@ -85,6 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:backgroundTint="#2196F3"
                     app:srcCompat="@drawable/ic_menu_gallery" />
 
             </LinearLayout>
@@ -93,8 +102,10 @@
                 android:id="@+id/btn_registrarProducto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Publicar venta"
+                android:backgroundTint="#673AB7"
                 android:onClick="registrarProducto"
+                android:text="Publicar venta"
+                android:textColor="#FAF8F8"
                 android:textStyle="bold" />
         </LinearLayout>
 

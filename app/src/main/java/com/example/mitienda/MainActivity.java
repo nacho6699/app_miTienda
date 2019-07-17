@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent registrarProducto = new Intent(MainActivity.this, registrarProducto.class);
+                startActivity(registrarProducto);
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity
                         itemJson = response.getJSONObject(i);
                         String imgPro = utils.HOST + itemJson.getString("img");
                         String title = itemJson.getString("descripcion");
-                        String precio = itemJson.getString("precio");
+                        String precio ="Bs. "+ itemJson.getString("precio");
                         String cantidad = itemJson.getString("cantidad");
                         String id_pro = itemJson.getString("_id");
                         String id_user = itemJson.getString("id_user");
@@ -315,7 +315,7 @@ public class MainActivity extends AppCompatActivity
         String sendImg = LISTINFO.get(position).getImgPro();
         String sendPrecio = LISTINFO.get(position).getPrecio();
         String sendCantidad = LISTINFO.get(position).getCantidad();
-        String sendDescriocion = LISTINFO.get(position).getTitle();
+        String sendDescripcion = LISTINFO.get(position).getTitle();
         String send_id_user = LISTINFO.get(position).getId_user();
 
         Intent detallesProducto = new Intent(MainActivity.this, detallesProducto.class);
@@ -323,7 +323,7 @@ public class MainActivity extends AppCompatActivity
         detallesProducto.putExtra("id_pro",id_pro);
         detallesProducto.putExtra("precio",sendPrecio);
         detallesProducto.putExtra("cantidad",sendCantidad);
-        detallesProducto.putExtra("descripcion",sendDescriocion);
+        detallesProducto.putExtra("descripcion",sendDescripcion);
         detallesProducto.putExtra("id_user",send_id_user);
         //Toast.makeText(this, ">>>"+sendImg,Toast.LENGTH_LONG).show();
         startActivity(detallesProducto);

@@ -62,6 +62,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:text="precio"
+                    android:textColor="#0F7C13"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"

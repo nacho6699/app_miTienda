@@ -8,5 +8,6 @@ public class utils {
     public static String REGISTER_PRODUCTOS_SERVICE = HOST +  "/v1.0/api/productos";
     public static String LIST_USERS =HOST +  "/v1.0/api/user";
     public static String LIST_PRODUCTOS_USER = HOST + "/v1.0/api/productosUser";
+    public static String DELETE_PRODUCTOS_USER = HOST + "/v1.0/api/productosUser";
     public static String token="";
 }

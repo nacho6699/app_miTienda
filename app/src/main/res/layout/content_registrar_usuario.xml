@@ -20,9 +20,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:paddingRight="10dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_registrar"
@@ -35,6 +35,12 @@
                 android:textStyle="bold"
                 tools:layout_editor_absoluteX="162dp"
                 tools:layout_editor_absoluteY="23dp" />
+
+            <View
+                android:id="@+id/divider5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <EditText
                 android:id="@+id/et_nombre"
@@ -80,9 +86,12 @@
                 android:id="@+id/btn_registrar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#673AB7"
                 android:onClick="registrarUsuario"
                 android:paddingTop="10dp"
                 android:text="Registrar"
+                android:textColor="#FDFCFC"
+                android:textStyle="bold"
                 tools:layout_editor_absoluteX="49dp"
                 tools:layout_editor_absoluteY="347dp" />
 

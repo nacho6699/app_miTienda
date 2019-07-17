@@ -74,8 +74,8 @@ public class registrarProducto extends AppCompatActivity implements View.OnClick
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent home = new Intent(registrarProducto.this,MainActivity.class);
+                startActivity(home);
             }
         });
 
